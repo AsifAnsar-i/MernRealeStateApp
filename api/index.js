@@ -18,7 +18,17 @@ app.use(morgan("dev"));
 
 const port = process.env.port || 8080;
 
-app.use("/api/auth", authRouter); 
+app.use("/api/auth", authRouter);
+
+app.use((err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  const message = err.message || "Internal Server Error";
+  return res.status(statusCode).json({
+    success: false,
+    statusCode,
+    message,
+  });
+});
 
 app.listen(port, () => {
   console.warn(`server running on port ${port}`.bgGreen.white);
