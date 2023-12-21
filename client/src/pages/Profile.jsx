@@ -20,6 +20,7 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
+import { Link } from "react-router-dom";
 const Profile = () => {
   const fileRef = useRef(null);
   const { currentUser, loading, error } = useSelector((state) => state.user);
@@ -62,7 +63,8 @@ const Profile = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
-
+   
+   
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -174,6 +176,12 @@ const Profile = () => {
         >
           {loading ? "Loading..." : "Update"}
         </button>
+        <Link
+          className="bg-green-700 text-center text-white rounded-lg p-3 uppercase hover:opacity-95 "
+          to="/create-listing"
+        >
+          Create listing
+        </Link>
       </form>
       <div className="flex justify-between mt-5">
         <span
